@@ -1,0 +1,1 @@
+pscp -pw 199103 D:\Source\MalMonitor\bin\Release\MalMontor.exe D:\Source\MalMonInject\bin\Release\MalMonInject.dll Administrator@192.168.154.128:c:\VBMDAS\malware
