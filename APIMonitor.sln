@@ -3,9 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2013
 VisualStudioVersion = 12.0.21005.1
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "APIMonitor", "APIMonitor\APIMonitor.csproj", "{ADD4E222-2FB9-430D-AA66-2D7C98A75213}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MalMonitor", "MalMonitor\MalMonitor.csproj", "{9431C8CF-9F61-46C2-9144-19C3B9B1A893}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MalMonInject", "MalMonInject\MalMonInject.csproj", "{63CFEE7B-8B0D-462C-8701-D53D9A4AA2F0}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -13,14 +13,14 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{ADD4E222-2FB9-430D-AA66-2D7C98A75213}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{ADD4E222-2FB9-430D-AA66-2D7C98A75213}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{ADD4E222-2FB9-430D-AA66-2D7C98A75213}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{ADD4E222-2FB9-430D-AA66-2D7C98A75213}.Release|Any CPU.Build.0 = Release|Any CPU
 		{9431C8CF-9F61-46C2-9144-19C3B9B1A893}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{9431C8CF-9F61-46C2-9144-19C3B9B1A893}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{9431C8CF-9F61-46C2-9144-19C3B9B1A893}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{9431C8CF-9F61-46C2-9144-19C3B9B1A893}.Release|Any CPU.Build.0 = Release|Any CPU
+		{63CFEE7B-8B0D-462C-8701-D53D9A4AA2F0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{63CFEE7B-8B0D-462C-8701-D53D9A4AA2F0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{63CFEE7B-8B0D-462C-8701-D53D9A4AA2F0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{63CFEE7B-8B0D-462C-8701-D53D9A4AA2F0}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

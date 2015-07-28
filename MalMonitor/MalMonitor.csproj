@@ -4,7 +4,7 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{5DDE32F8-DC2F-469E-8273-57780D22AF89}</ProjectGuid>
+    <ProjectGuid>{9431C8CF-9F61-46C2-9144-19C3B9B1A893}</ProjectGuid>
     <OutputType>Exe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>MalMonitor</RootNamespace>
