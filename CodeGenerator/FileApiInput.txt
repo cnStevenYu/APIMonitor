@@ -1,0 +1,110 @@
+
+[System.Runtime.InteropServices.StructLayoutAttribute(System.Runtime.InteropServices.LayoutKind.Sequential)]
+public struct SECURITY_ATTRIBUTES {
+    
+    /// DWORD->unsigned int
+    public uint nLength;
+    
+    /// LPVOID->void*
+    public System.IntPtr lpSecurityDescriptor;
+    
+    /// BOOL->int
+    [System.Runtime.InteropServices.MarshalAsAttribute(System.Runtime.InteropServices.UnmanagedType.Bool)]
+    public bool bInheritHandle;
+}
+
+[System.Runtime.InteropServices.StructLayoutAttribute(System.Runtime.InteropServices.LayoutKind.Sequential)]
+public struct STARTUPINFOW {
+    
+    /// DWORD->unsigned int
+    public uint cb;
+    
+    /// LPWSTR->WCHAR*
+    [System.Runtime.InteropServices.MarshalAsAttribute(System.Runtime.InteropServices.UnmanagedType.LPWStr)]
+    public string lpReserved;
+    
+    /// LPWSTR->WCHAR*
+    [System.Runtime.InteropServices.MarshalAsAttribute(System.Runtime.InteropServices.UnmanagedType.LPWStr)]
+    public string lpDesktop;
+    
+    /// LPWSTR->WCHAR*
+    [System.Runtime.InteropServices.MarshalAsAttribute(System.Runtime.InteropServices.UnmanagedType.LPWStr)]
+    public string lpTitle;
+    
+    /// DWORD->unsigned int
+    public uint dwX;
+    
+    /// DWORD->unsigned int
+    public uint dwY;
+    
+    /// DWORD->unsigned int
+    public uint dwXSize;
+    
+    /// DWORD->unsigned int
+    public uint dwYSize;
+    
+    /// DWORD->unsigned int
+    public uint dwXCountChars;
+    
+    /// DWORD->unsigned int
+    public uint dwYCountChars;
+    
+    /// DWORD->unsigned int
+    public uint dwFillAttribute;
+    
+    /// DWORD->unsigned int
+    public uint dwFlags;
+    
+    /// WORD->unsigned short
+    public ushort wShowWindow;
+    
+    /// WORD->unsigned short
+    public ushort cbReserved2;
+    
+    /// LPBYTE->BYTE*
+    public System.IntPtr lpReserved2;
+    
+    /// HANDLE->void*
+    public System.IntPtr hStdInput;
+    
+    /// HANDLE->void*
+    public System.IntPtr hStdOutput;
+    
+    /// HANDLE->void*
+    public System.IntPtr hStdError;
+}
+
+[System.Runtime.InteropServices.StructLayoutAttribute(System.Runtime.InteropServices.LayoutKind.Sequential)]
+public struct PROCESS_INFORMATION {
+    
+    /// HANDLE->void*
+    public System.IntPtr hProcess;
+    
+    /// HANDLE->void*
+    public System.IntPtr hThread;
+    
+    /// DWORD->unsigned int
+    public uint dwProcessId;
+    
+    /// DWORD->unsigned int
+    public uint dwThreadId;
+}
+
+public partial class NativeMethods {
+    
+    /// Return Type: BOOL->int
+    ///lpApplicationName: LPCWSTR->WCHAR*
+    ///lpCommandLine: LPWSTR->WCHAR*
+    ///lpProcessAttributes: LPSECURITY_ATTRIBUTES->_SECURITY_ATTRIBUTES*
+    ///lpThreadAttributes: LPSECURITY_ATTRIBUTES->_SECURITY_ATTRIBUTES*
+    ///bInheritHandles: BOOL->int
+    ///dwCreationFlags: DWORD->unsigned int
+    ///lpEnvironment: LPVOID->void*
+    ///lpCurrentDirectory: LPCWSTR->WCHAR*
+    ///lpStartupInfo: LPSTARTUPINFOW->_STARTUPINFOW*
+    ///lpProcessInformation: LPPROCESS_INFORMATION->_PROCESS_INFORMATION*
+    [System.Runtime.InteropServices.DllImportAttribute("kernel32.dll", EntryPoint="CreateProcessW")]
+    [return: System.Runtime.InteropServices.MarshalAsAttribute(System.Runtime.InteropServices.UnmanagedType.Bool)]
+public static extern  bool CreateProcessW([System.Runtime.InteropServices.InAttribute()] [System.Runtime.InteropServices.MarshalAsAttribute(System.Runtime.InteropServices.UnmanagedType.LPWStr)] string lpApplicationName, System.IntPtr lpCommandLine, [System.Runtime.InteropServices.InAttribute()] System.IntPtr lpProcessAttributes, [System.Runtime.InteropServices.InAttribute()] System.IntPtr lpThreadAttributes, [System.Runtime.InteropServices.MarshalAsAttribute(System.Runtime.InteropServices.UnmanagedType.Bool)] bool bInheritHandles, uint dwCreationFlags, [System.Runtime.InteropServices.InAttribute()] System.IntPtr lpEnvironment, [System.Runtime.InteropServices.InAttribute()] [System.Runtime.InteropServices.MarshalAsAttribute(System.Runtime.InteropServices.UnmanagedType.LPWStr)] string lpCurrentDirectory, [System.Runtime.InteropServices.InAttribute()] ref STARTUPINFOW lpStartupInfo, [System.Runtime.InteropServices.OutAttribute()] out PROCESS_INFORMATION lpProcessInformation) ;
+
+}

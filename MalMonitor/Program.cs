@@ -7,30 +7,6 @@ using EasyHook;
 
 namespace MalMonitor
 {
-    public class MalMonInterface : MarshalByRefObject
-    {
-        public void IsInstalled(Int32 InClientPID)
-        {
-            Console.WriteLine("MalMon has been installed in target {0}.\r\n", InClientPID);
-        }
-
-        public void OnCreateFile(Int32 InClientPID, String[] InFileNames)
-        {
-            for (int i = 0; i < InFileNames.Length; i++)
-            {
-                Console.WriteLine(InFileNames[i]);
-            }
-        }
-
-        public void ReportException(Exception InInfo)
-        {
-            Console.WriteLine("The target process has reported an error:\r\n" + InInfo.ToString());
-        }
-
-        public void Ping()
-        {
-        }
-    }
 
     class Program
     {
@@ -73,7 +49,7 @@ namespace MalMonitor
                     System.Diagnostics.Process.GetCurrentProcess().Kill();
                 }
 
-                RemoteHooking.IpcCreateServer<MalMonInterface>(ref ChannelName, WellKnownObjectMode.SingleCall);
+                RemoteHooking.IpcCreateServer<MonitorInterface>(ref ChannelName, WellKnownObjectMode.SingleCall);
 
                 RemoteHooking.Inject(
                     TargetPID,

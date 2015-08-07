@@ -7,20 +7,29 @@ using EasyHook;
 
 namespace MalMonInject
 {
-    public class Main : EasyHook.IEntryPoint
+    public class MalMonInject : EasyHook.IEntryPoint
     {
-        MalMonitor.MalMonInterface Interface;
-        LocalHook CreateFileHook;
-        LocalHook GetTickCountHook;
-        Stack<String> Queue = new Stack<String>();
+        public MalMonitor.MonitorInterface Interface;
 
-        public Main(
+        public FileActivities FileApis;
+
+        public RegActivities RegApis;
+
+        public ProcActivities ProcApis;
+
+        public NetActivities NetApis;
+
+        public Stack<String> Queue = new Stack<String>();
+
+        public MalMonInject(
             RemoteHooking.IContext InContext,
             String InChannelName)
         {
-            // connect to host...
-            Interface = RemoteHooking.IpcConnectClient<MalMonitor.MalMonInterface>(InChannelName);
+            FileApis = new FileActivities(this);
+            ProcApis = new ProcActivities(this);
 
+            // connect to host...
+            Interface = RemoteHooking.IpcConnectClient<MalMonitor.MonitorInterface>(InChannelName);
             Interface.Ping();
         }
 
@@ -31,18 +40,8 @@ namespace MalMonInject
             // install hook...
             try
             {
-
-                CreateFileHook = LocalHook.Create(
-                    LocalHook.GetProcAddress("kernel32.dll", "CreateFileW"),
-                    new DCreateFile(CreateFile_Hooked),
-                    this);
-                GetTickCountHook = LocalHook.Create(
-                    LocalHook.GetProcAddress("kernel32.dll", "GetTickCount"),
-                    new DGetTickCount(GetTickCount_Hooked),
-                    this);
-
-                CreateFileHook.ThreadACL.SetExclusiveACL(new Int32[] { 0 });
-                GetTickCountHook.ThreadACL.SetExclusiveACL(new Int32[] { 0 });
+                FileApis.InstallHook();
+                ProcApis.InstallHook();
             }
             catch (Exception ExtInfo)
             {
@@ -74,7 +73,7 @@ namespace MalMonInject
                             Queue.Clear();
                         }
 
-                        Interface.OnCreateFile(RemoteHooking.GetCurrentProcessId(), Package);
+                        Interface.Output(DateTime.Now, RemoteHooking.GetCurrentProcessId(), Package);
                     }
                     else
                         Interface.Ping();
@@ -86,83 +85,6 @@ namespace MalMonInject
             }
         }
 
-        [UnmanagedFunctionPointer(CallingConvention.StdCall,
-            CharSet = CharSet.Unicode,
-            SetLastError = true)]
-        delegate IntPtr DCreateFile(
-            String InFileName,
-            UInt32 InDesiredAccess,
-            UInt32 InShareMode,
-            IntPtr InSecurityAttributes,
-            UInt32 InCreationDisposition,
-            UInt32 InFlagsAndAttributes,
-            IntPtr InTemplateFile);
-
-        [UnmanagedFunctionPointer(CallingConvention.StdCall,
-            CharSet = CharSet.Unicode,
-            SetLastError = true)]
-        delegate UInt32 DGetTickCount();
-
-        // just use a P-Invoke implementation to get native API access from C# (this step is not necessary for C++.NET)
-        [DllImport("kernel32.dll",
-            CharSet = CharSet.Unicode,
-            SetLastError = true,
-            CallingConvention = CallingConvention.StdCall)]
-        static extern IntPtr CreateFile(
-            String InFileName,
-            UInt32 InDesiredAccess,
-            UInt32 InShareMode,
-            IntPtr InSecurityAttributes,
-            UInt32 InCreationDisposition,
-            UInt32 InFlagsAndAttributes,
-            IntPtr InTemplateFile);
-
-        [DllImport("kernel32.dll",
-            CharSet = CharSet.Unicode,
-            SetLastError = true,
-            CallingConvention = CallingConvention.StdCall)]
-        static extern UInt32 GetTickCount();
-
-        // this is where we are intercepting all file accesses!
-        static IntPtr CreateFile_Hooked(
-            String InFileName,
-            UInt32 InDesiredAccess,
-            UInt32 InShareMode,
-            IntPtr InSecurityAttributes,
-            UInt32 InCreationDisposition,
-            UInt32 InFlagsAndAttributes,
-            IntPtr InTemplateFile)
-        {
-
-            try
-            {
-                Main This = (Main)HookRuntimeInfo.Callback;
-
-                lock (This.Queue)
-                {
-                    This.Queue.Push("[" + RemoteHooking.GetCurrentProcessId() + ":" +
-                        RemoteHooking.GetCurrentThreadId() + "]: \"" + InFileName + "\"");
-                }
-            }
-            catch
-            {
-            }
-
-            // call original API...
-            return CreateFile(
-                InFileName,
-                InDesiredAccess,
-                InShareMode,
-                InSecurityAttributes,
-                InCreationDisposition,
-                InFlagsAndAttributes,
-                InTemplateFile);
-        }
-
-        static UInt32 GetTickCount_Hooked()
-        {
-            Console.WriteLine("GetTickCount is hooked!-----");
-            return GetTickCount();
-        }
+        
     }
 }
