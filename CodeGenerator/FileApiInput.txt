@@ -1,110 +1,74 @@
 
-[System.Runtime.InteropServices.StructLayoutAttribute(System.Runtime.InteropServices.LayoutKind.Sequential)]
-public struct SECURITY_ATTRIBUTES {
+public partial class NativeMethods {
     
-    /// DWORD->unsigned int
-    public uint nLength;
-    
-    /// LPVOID->void*
-    public System.IntPtr lpSecurityDescriptor;
-    
-    /// BOOL->int
-    [System.Runtime.InteropServices.MarshalAsAttribute(System.Runtime.InteropServices.UnmanagedType.Bool)]
-    public bool bInheritHandle;
+    /// Return Type: int
+    ///s: SOCKET->UINT_PTR->unsigned int
+    ///buf: char*
+    ///len: int
+    ///flags: int
+    [System.Runtime.InteropServices.DllImportAttribute("ws2_32.dll", EntryPoint="send", CallingConvention=System.Runtime.InteropServices.CallingConvention.StdCall)]
+public static extern  int send([System.Runtime.InteropServices.MarshalAsAttribute(System.Runtime.InteropServices.UnmanagedType.SysUInt)] uint s, [System.Runtime.InteropServices.InAttribute()] [System.Runtime.InteropServices.MarshalAsAttribute(System.Runtime.InteropServices.UnmanagedType.LPStr)] string buf, int len, int flags) ;
+
 }
 
-[System.Runtime.InteropServices.StructLayoutAttribute(System.Runtime.InteropServices.LayoutKind.Sequential)]
-public struct STARTUPINFOW {
+[System.Runtime.InteropServices.StructLayoutAttribute(System.Runtime.InteropServices.LayoutKind.Sequential, CharSet=System.Runtime.InteropServices.CharSet.Ansi)]
+public struct sockaddr {
     
-    /// DWORD->unsigned int
-    public uint cb;
+    /// u_short->unsigned short
+    public ushort sa_family;
     
-    /// LPWSTR->WCHAR*
-    [System.Runtime.InteropServices.MarshalAsAttribute(System.Runtime.InteropServices.UnmanagedType.LPWStr)]
-    public string lpReserved;
-    
-    /// LPWSTR->WCHAR*
-    [System.Runtime.InteropServices.MarshalAsAttribute(System.Runtime.InteropServices.UnmanagedType.LPWStr)]
-    public string lpDesktop;
-    
-    /// LPWSTR->WCHAR*
-    [System.Runtime.InteropServices.MarshalAsAttribute(System.Runtime.InteropServices.UnmanagedType.LPWStr)]
-    public string lpTitle;
-    
-    /// DWORD->unsigned int
-    public uint dwX;
-    
-    /// DWORD->unsigned int
-    public uint dwY;
-    
-    /// DWORD->unsigned int
-    public uint dwXSize;
-    
-    /// DWORD->unsigned int
-    public uint dwYSize;
-    
-    /// DWORD->unsigned int
-    public uint dwXCountChars;
-    
-    /// DWORD->unsigned int
-    public uint dwYCountChars;
-    
-    /// DWORD->unsigned int
-    public uint dwFillAttribute;
-    
-    /// DWORD->unsigned int
-    public uint dwFlags;
-    
-    /// WORD->unsigned short
-    public ushort wShowWindow;
-    
-    /// WORD->unsigned short
-    public ushort cbReserved2;
-    
-    /// LPBYTE->BYTE*
-    public System.IntPtr lpReserved2;
-    
-    /// HANDLE->void*
-    public System.IntPtr hStdInput;
-    
-    /// HANDLE->void*
-    public System.IntPtr hStdOutput;
-    
-    /// HANDLE->void*
-    public System.IntPtr hStdError;
-}
-
-[System.Runtime.InteropServices.StructLayoutAttribute(System.Runtime.InteropServices.LayoutKind.Sequential)]
-public struct PROCESS_INFORMATION {
-    
-    /// HANDLE->void*
-    public System.IntPtr hProcess;
-    
-    /// HANDLE->void*
-    public System.IntPtr hThread;
-    
-    /// DWORD->unsigned int
-    public uint dwProcessId;
-    
-    /// DWORD->unsigned int
-    public uint dwThreadId;
+    /// char[14]
+    [System.Runtime.InteropServices.MarshalAsAttribute(System.Runtime.InteropServices.UnmanagedType.ByValTStr, SizeConst=14)]
+    public string sa_data;
 }
 
 public partial class NativeMethods {
     
-    /// Return Type: BOOL->int
-    ///lpApplicationName: LPCWSTR->WCHAR*
-    ///lpCommandLine: LPWSTR->WCHAR*
-    ///lpProcessAttributes: LPSECURITY_ATTRIBUTES->_SECURITY_ATTRIBUTES*
-    ///lpThreadAttributes: LPSECURITY_ATTRIBUTES->_SECURITY_ATTRIBUTES*
-    ///bInheritHandles: BOOL->int
-    ///dwCreationFlags: DWORD->unsigned int
-    ///lpEnvironment: LPVOID->void*
-    ///lpCurrentDirectory: LPCWSTR->WCHAR*
-    ///lpStartupInfo: LPSTARTUPINFOW->_STARTUPINFOW*
-    ///lpProcessInformation: LPPROCESS_INFORMATION->_PROCESS_INFORMATION*
-    [System.Runtime.InteropServices.DllImportAttribute("kernel32.dll", EntryPoint="CreateProcessW")]
-    [return: System.Runtime.InteropServices.MarshalAsAttribute(System.Runtime.InteropServices.UnmanagedType.Bool)]
-public static extern  bool CreateProcessW([System.Runtime.InteropServices.InAttribute()] [System.Runtime.InteropServices.MarshalAsAttribute(System.Runtime.InteropServices.UnmanagedType.LPWStr)] string lpApplicationName, System.IntPtr lpCommandLine, [System.Runtime.InteropServices.InAttribute()] System.IntPtr lpProcessAttributes, [System.Runtime.InteropServices.InAttribute()] System.IntPtr lpThreadAttributes, [System.Runtime.InteropServices.MarshalAsAttribute(System.Runtime.InteropServices.UnmanagedType.Bool)] bool bInheritHandles, uint dwCreationFlags, [System.Runtime.InteropServices.InAttribute()] System.IntPtr lpEnvironment, [System.Runtime.InteropServices.InAttribute()] [System.Runtime.InteropServices.MarshalAsAttribute(System.Runtime.InteropServices.UnmanagedType.LPWStr)] string lpCurrentDirectory, [System.Runtime.InteropServices.InAttribute()] ref STARTUPINFOW lpStartupInfo, [System.Runtime.InteropServices.OutAttribute()] out PROCESS_INFORMATION lpProcessInformation) ;
+    /// Return Type: int
+    ///s: SOCKET->UINT_PTR->unsigned int
+    ///buf: char*
+    ///len: int
+    ///flags: int
+    ///to: sockaddr*
+    ///tolen: int
+    [System.Runtime.InteropServices.DllImportAttribute("ws2_32.dll", EntryPoint="sendto", CallingConvention=System.Runtime.InteropServices.CallingConvention.StdCall)]
+public static extern  int sendto([System.Runtime.InteropServices.MarshalAsAttribute(System.Runtime.InteropServices.UnmanagedType.SysUInt)] uint s, [System.Runtime.InteropServices.InAttribute()] [System.Runtime.InteropServices.MarshalAsAttribute(System.Runtime.InteropServices.UnmanagedType.LPStr)] string buf, int len, int flags, ref sockaddr to, int tolen) ;
+
+}
+
+public partial class NativeMethods {
+    
+    /// Return Type: int
+    ///s: SOCKET->UINT_PTR->unsigned int
+    ///buf: char*
+    ///len: int
+    ///flags: int
+    [System.Runtime.InteropServices.DllImportAttribute("ws2_32.dll", EntryPoint="recv", CallingConvention=System.Runtime.InteropServices.CallingConvention.StdCall)]
+public static extern  int recv([System.Runtime.InteropServices.MarshalAsAttribute(System.Runtime.InteropServices.UnmanagedType.SysUInt)] uint s, System.IntPtr buf, int len, int flags) ;
+
+}
+
+[System.Runtime.InteropServices.StructLayoutAttribute(System.Runtime.InteropServices.LayoutKind.Sequential, CharSet=System.Runtime.InteropServices.CharSet.Ansi)]
+public struct sockaddr {
+    
+    /// u_short->unsigned short
+    public ushort sa_family;
+    
+    /// char[14]
+    [System.Runtime.InteropServices.MarshalAsAttribute(System.Runtime.InteropServices.UnmanagedType.ByValTStr, SizeConst=14)]
+    public string sa_data;
+}
+
+public partial class NativeMethods {
+    
+    /// Return Type: int
+    ///s: SOCKET->UINT_PTR->unsigned int
+    ///buf: char*
+    ///len: int
+    ///flags: int
+    ///from: sockaddr*
+    ///fromlen: int*
+    [System.Runtime.InteropServices.DllImportAttribute("ws2_32.dll", EntryPoint="recvfrom", CallingConvention=System.Runtime.InteropServices.CallingConvention.StdCall)]
+public static extern  int recvfrom([System.Runtime.InteropServices.MarshalAsAttribute(System.Runtime.InteropServices.UnmanagedType.SysUInt)] uint s, System.IntPtr buf, int len, int flags, ref sockaddr from, ref int fromlen) ;
 
 }

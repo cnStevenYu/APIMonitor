@@ -11,13 +11,13 @@ namespace MalMonInject
     {
         public MalMonitor.MonitorInterface Interface;
 
-        public FileActivities FileApis;
+        public FileActivities FileApis;// monitor file operations
 
-        public RegActivities RegApis;
+        public RegActivities RegApis;//monitor reg operations
 
-        public ProcActivities ProcApis;
+        public ProcActivities ProcApis;//monitor proc operations
 
-        public NetActivities NetApis;
+        public NetActivities NetApis;//monitor net operations
 
         public Stack<String> Queue = new Stack<String>();
 
@@ -27,6 +27,8 @@ namespace MalMonInject
         {
             FileApis = new FileActivities(this);
             ProcApis = new ProcActivities(this);
+            RegApis = new RegActivities(this);
+            NetApis = new NetActivities(this);
 
             // connect to host...
             Interface = RemoteHooking.IpcConnectClient<MalMonitor.MonitorInterface>(InChannelName);
@@ -40,8 +42,10 @@ namespace MalMonInject
             // install hook...
             try
             {
-                FileApis.InstallHook();
-                ProcApis.InstallHook();
+                //FileApis.InstallHook();
+                //ProcApis.InstallHook();
+                //RegApis.InstallHook();
+                NetApis.InstallHook();
             }
             catch (Exception ExtInfo)
             {
