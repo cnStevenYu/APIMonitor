@@ -13,6 +13,8 @@ namespace MalMonInject
         LocalHook ReadFileHook;
         LocalHook WriteFileHook;
 
+        private DReadFile ReadFileFunc;
+
         public FileActivities(MalMonInject Injector):base(Injector)
         {
         }
@@ -113,7 +115,6 @@ namespace MalMonInject
         [return: MarshalAsAttribute(UnmanagedType.Bool)]
         static extern bool ReadFile([InAttribute()] IntPtr hFile, IntPtr lpBuffer, uint nNumberOfBytesToRead, IntPtr lpNumberOfBytesRead, IntPtr lpOverlapped);
 
-        private DReadFile ReadFileFunc;
         static bool ReadFile_Hooked(IntPtr hFile, IntPtr lpBuffer, uint nNumberOfBytesToRead, IntPtr lpNumberOfBytesRead, IntPtr lpOverlapped)
         {
             bool res = false;

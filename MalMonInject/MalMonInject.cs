@@ -50,7 +50,6 @@ namespace MalMonInject
             catch (Exception ExtInfo)
             {
                 Interface.ReportException(ExtInfo);
-
                 return;
             }
 
@@ -86,9 +85,8 @@ namespace MalMonInject
             catch
             {
                 // Ping() will raise an exception if host is unreachable
+
             }
         }
-
-        
     }
 }

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.IO;
 
 namespace MalMonitor
 {
@@ -14,6 +15,17 @@ namespace MalMonitor
             {
                 Console.WriteLine(str);
             }
+            
+            /*
+            using(StreamWriter sw = new StreamWriter("result.txt", true)){
+
+                foreach (string str in InStr)
+                {
+                    sw.WriteLine(str);
+                }
+
+            }
+            */
         }
 
         public void IsInstalled(Int32 InClientPID)
